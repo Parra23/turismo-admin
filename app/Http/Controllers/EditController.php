@@ -1,13 +1,14 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Http;
+
 class EditController extends Controller
 {
-  
     // Método para procesar la edición
     public function edit($resource, $id)
     {
-
         $map = $this->getResourceMap();
         if (! isset($map[$resource])) {
             abort(404);
@@ -22,7 +23,7 @@ class EditController extends Controller
         if (empty($data)) {
             abort(404, 'Registro no encontrado');
         }
-        $registro = $data[0];
-    return view('edit', compact('registro', 'resource'));
+        $registro = is_array($data) && isset($data[0]) ? $data[0] : $data;
+        return view('edit', compact('registro', 'resource'));
     }
 }

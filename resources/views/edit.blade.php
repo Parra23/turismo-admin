@@ -1,17 +1,17 @@
+<!-- filepath: c:\Users\jparr\turismo\resources\views\edit.blade.php -->
 <x-app-layout>
     <div class="max-w-6xl mx-auto px-2 sm:px-4 md:px-6">
         <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#023E8A] mb-4 pb-2">
             Edit {{ Str::singular($resource) }}
         </h1>
-
-        <form action="{{ url("$resource/{$registro['id']}") }}" method="POST"
+        <form id="edit-form" action="{{ url($resource.'/'.data_get($registro, 'id')) }}" method="POST"
             class="bg-white rounded-xl shadow-lg p-4 sm:p-8 md:p-10 space-y-8">
             @csrf
             @method('PUT')
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 @foreach ($registro as $key => $value)
-                    @if (!in_array($key, ['id', 'created_at', 'updated_at']))
+                    @if (!in_array($key, ['id', 'created_at', 'updated_at', 'name_department']))
                         <div>
                             <label for="{{ $key }}"
                                 class="block text-sm font-semibold text-[#023E8A] capitalize mb-1">

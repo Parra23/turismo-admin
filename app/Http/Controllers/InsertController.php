@@ -49,7 +49,7 @@ class InsertController extends Controller
                 ->with('error', $errorMsg);
         }
         if ($request->ajax()) {
-            return response()->json(['success' => 'Registro creado correctamente']);
+            return response()->json(['success' => 'Record created correctly']);
         }
         return redirect()
             ->route('general.show', ['resource' => $resource])

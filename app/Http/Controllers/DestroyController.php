@@ -25,17 +25,13 @@ class DestroyController extends Controller
                 // Devuelve toda la respuesta de la API
                 return response()->json($errorData, 400);
             }
-            // Si no es AJAX, usa el mensaje si existe, si no un mensaje genérico
-            $errorMsg = $errorData['message'] ?? 'No se pudo eliminar el registro.';
-            return redirect()
-                ->route('general.show', ['resource' => $resource])
-                ->with('error', $errorMsg);
+        
         }
         if ($request->ajax()) {
-            return response()->json(['success' => 'Registro eliminado correctamente']);
+            return response()->json(['success' => 'Record properly deleted']);
         }
         return redirect()
             ->route('general.show', ['resource' => $resource])
-            ->with('success', 'Registro eliminado correctamente');
+            ->with('success', 'Record properly deleted');
     }
 }

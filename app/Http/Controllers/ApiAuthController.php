@@ -72,4 +72,10 @@ class ApiAuthController extends Controller
             return back();
         }
     }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        session()->flush();
+        return redirect('/login');
+    }
 }

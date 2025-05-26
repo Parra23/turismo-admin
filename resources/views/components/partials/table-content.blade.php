@@ -29,6 +29,7 @@
                 Buscar
             </button>
         </form>
+        @if ($resource !== 'logs')
         <a href="{{ route('general.insert', ['resource' => $resource]) }}"
             class="inline-flex justify-center items-center px-4 py-2 bg-[#FFD60A] text-[#023E8A] font-semibold rounded hover:bg-[#ffc300] transition-colors shadow w-full sm:w-auto">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -36,6 +37,7 @@
             </svg>
             <span class="truncate">New {{ Str::singular($resource) }}</span>
         </a>
+        @endif
     </div>
 </div>
 <div class="w-full max-w-5xl mx-auto rounded-lg shadow-lg">
@@ -85,14 +87,16 @@
                             data_get($item, 'role') == 1 &&
                             data_get($item, 'status') == 1;
                     @endphp
-                    <tr @unless ($isOwnRecord)
-                    onclick="window.location='{{ route('general.edit', ['resource' => $resource, 'id' => $item['id']]) }}'"
-                @endunless
-                        class="relative cursor-pointer hover:bg-[#FFD60A] transition-all duration-500 ease-in-out {{ $isOwnRecord ? 'opacity-50 cursor-not-allowed' : '' }} hover:shadow-2xl hover:-translate-y-2 hover:z-30"
+                    <tr
+                        @unless ($isOwnRecord || $resource === 'logs' || $resource === 'favorites')
+                            onclick="window.location='{{ route('general.edit', ['resource' => $resource, 'id' => $item['id']]) }}'"
+                        @endunless
+                        class="relative cursor-pointer hover:bg-[#FFD60A] transition-all duration-500 ease-in-out {{ $isOwnRecord || $resource === 'logs' || $resource === 'favorites' ? 'opacity-50 cursor-not-allowed' : '' }} hover:shadow-2xl hover:-translate-y-2 hover:z-30"
                         style="will-change: transform; overflow-anchor: none;" tabindex="0"
-                        @unless ($isOwnRecord)
-                    onkeydown="if(event.key === 'Enter' || event.key === ' ') selectRow(this)"
-                @endunless>
+                        @unless ($isOwnRecord || $resource === 'logs' || $resource === 'favorites')
+                            onkeydown="if(event.key === 'Enter' || event.key === ' ') selectRow(this)"
+                        @endunless
+                    >
                         @foreach ($columns as $col)
                             <td class="px-4 py-4 whitespace-nowrap text-[#023E8A]">
                                 @if ($col['key'] === 'role')
@@ -105,14 +109,14 @@
                             </td>
                         @endforeach
                         <td class="px-4 py-4 whitespace-nowrap text-center">
+                            @if ($resource !== 'logs')
                             <form method="POST"
                                 action="{{ route('general.destroy', ['resource' => $resource, 'id' => $item['id']]) }}"
                                 class="delete-form" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600 hover:text-red-900 font-bold"
-                                    title="Eliminar"
-                                    onclick="event.stopPropagation();">
+                                    title="Eliminar" onclick="event.stopPropagation();">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="inline w-5 h-5" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -120,6 +124,7 @@
                                     </svg>
                                 </button>
                             </form>
+                            @endif
                         </td>
                     </tr>
                 @empty

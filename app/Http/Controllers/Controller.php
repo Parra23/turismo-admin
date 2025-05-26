@@ -14,8 +14,12 @@ abstract class Controller
         'cities'       => 'Cities',
         'placetypes'     => 'PlaceTypes',
         'photos'       => 'Photos',
+        'comments'     => 'Comments',
+        'logs'       => 'vw_logs',
+        'favorites'     => 'Favorites',
+        'places' => 'Places',
+        'reactions' => 'Reactions',
     ];
-
     protected function getResourceMap()
     {
         return self::$resourceMap;
