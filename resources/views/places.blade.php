@@ -10,6 +10,7 @@
             ['label' => 'Contact Phone', 'key' => 'contact_phone'],
             ['label' => 'Contact Email', 'key' => 'contact_email'],
             ['label' => 'Contact Website', 'key' => 'social_media'],
+            ['label' => 'Fees', 'key' => 'fees'],
             ['label' => 'Status', 'key' => 'status'],
             ['label' => 'Creation date', 'key' => 'creation_date'],
             

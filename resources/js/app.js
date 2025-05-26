@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
         form.addEventListener("submit", function (e) {
             e.preventDefault();
             Swal.fire({
-                title: "Are you sure to delete this record? seguro?",
+                title: "Are you sure to delete this record?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#d33",
@@ -140,7 +140,56 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 });
-// Ejemplo para el submit AJAX del formulario de edición
+// AJAX para el formulario de edición (update)
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("edit-form");
+    if (!form) return;
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const action = form.action;
+        const token = form.querySelector('input[name="_token"]').value;
+        fetch(action, {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": token,
+                "X-Requested-With": "XMLHttpRequest",
+                Accept: "application/json",
+            },
+            body: new URLSearchParams(new FormData(form)),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: data.success,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    }).then(() => {
+                        // Redirige al listado del recurso
+                        const urlParts = action.split("/");
+                        const resource =
+                            urlParts[urlParts.length - 2] || urlParts[urlParts.length - 1];
+                        window.location.href = "/" + resource;
+                    });
+                } else if (data.error || data.message) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: data.error || data.message,
+                    });
+                }
+            })
+            .catch(() => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Error al intentar actualizar.",
+                });
+            });
+    });
+});
+// Clear search input and submit
 document.addEventListener("DOMContentLoaded", function () {
     const clearBtn = document.getElementById("clear-search");
     const input = document.getElementById("search-input");
@@ -151,6 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+// Sort links
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".sort-link").forEach((link) => {
         link.addEventListener("click", function (e) {
@@ -170,6 +220,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+// AJAX search form submission
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("ajax-search-form");
     const tableContainer = document.getElementById("table-container");

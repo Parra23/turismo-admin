@@ -4,6 +4,8 @@
             ['label' => 'ID', 'key' => 'id'],
             ['label' => 'Name', 'key' => 'name_city'],
             ['label' => 'Department', 'key' => 'name_department'],
+            // ['label' => 'Department ID', 'key' => 'department_id'],
+            
         ];
     @endphp
 
