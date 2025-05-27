@@ -43,7 +43,7 @@ class Columns
                 ['label' => 'Contact Website', 'key' => 'social_media'],
                 ['label' => 'Status', 'key' => 'status'],
                 ['label' => 'Creation date', 'key' => 'creation_date'],
-            ],'placetypes' => [
+                ],'placetypes' => [
                 ['label' => 'ID', 'key' => 'id'],
                 ['label' => 'Name Type', 'key' => 'name'],
                 ['label' => 'Description', 'key' => 'description'],

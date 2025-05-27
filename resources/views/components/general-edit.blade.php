@@ -4,7 +4,7 @@
         // Excluir columnas por key o por label
         $tableColumns = collect($columns)
             ->filter(function ($col) {
-                return is_array($col) && !in_array($col['label'] ?? '', ['Department', 'Name cYTy', 'Name tYPe', 'plACe Name', 'USER NAME', 'Comment Date', 'Place name']);
+                return is_array($col) && !in_array($col['label'] ?? '', ['Department', 'Name cYTy', 'Name tYPe', 'plACe Name', 'USER NAME', 'Comment Date', 'Creation date']);
             })
             ->values()
             ->all();

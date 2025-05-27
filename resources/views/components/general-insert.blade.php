@@ -5,7 +5,7 @@
             ->filter(function ($col) use ($resource) {
                 if (!is_array($col)) return false;
                 // Excluir por label
-                if (in_array($col['label'] ?? '', ['ID', 'Department', 'Name cYTy', 'Name tYPe'])) return false;
+                if (in_array($col['label'] ?? '', ['Department', 'Name cYTy', 'Name tYPe', 'plACe Name', 'USER NAME', 'Comment Date', 'Creation date'])) return false;
                 // Excluir role y status si el recurso no es users
                 if (in_array($col['key'], ['role', 'status']) && $resource !== 'users') return false;
                 return true;
