@@ -1,4 +1,15 @@
 {{-- filepath: resources/views/components/partials/table-content.blade.php --}}
+@php
+    // Excluir columnas por key o por label
+    $tableColumns = collect($columns)
+        ->filter(function($col) {
+            return is_array($col)
+                && !in_array($col['label'] ?? '', ['Password', 'Name Department', 'name type', 'name city', 'Place ID', 'PLaCe NaMe', 'user name']);
+        })
+        ->values()
+        ->all();
+@endphp 
+
 <div class="flex flex-col gap-4 md:flex-row md:justify-between md:items-center mb-6 max-w-5xl mx-auto">
     <div class="flex-1">
         <h1 class="text-2xl md:text-4xl font-bold text-[#023E8A] mb-2 pb-2">
@@ -49,7 +60,7 @@
             @endphp
             <thead class="bg-[#023E8A] text-white font-semibold sticky top-0">
                 <tr>
-                    @foreach ($columns as $col)
+                    @foreach ($tableColumns as $col)
                         @php
                             $index = array_search($col['key'], $currentSort);
                             $isSorted = $index !== false;
@@ -97,7 +108,7 @@
                             onkeydown="if(event.key === 'Enter' || event.key === ' ') selectRow(this)"
                         @endunless
                     >
-                        @foreach ($columns as $col)
+                        @foreach ($tableColumns as $col)
                             <td class="px-4 py-4 whitespace-nowrap text-[#023E8A]">
                                 @if ($col['key'] === 'role')
                                     {{ data_get($item, $col['key']) == 1 ? 'Admin' : 'User' }}

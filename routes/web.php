@@ -8,12 +8,14 @@ use App\Http\Controllers\DestroyController;
 use App\Http\Controllers\ApiAuthController;
 use Illuminate\Support\Facades\Auth;
 
+
 Route::redirect('/', '/login');
 
 // Mostrar formulario login
 Route::get('/login', function() {
     return view('auth.login'); // crea esta vista si no la tienes
-})->name('login');
+})->name('login'); 
+
 // Procesar login con tu controlador
 Route::post('/login', [ApiAuthController::class, 'login']);
 Route::post('/logout', function() {

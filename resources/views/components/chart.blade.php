@@ -65,30 +65,7 @@
             </div>
         </div>
 
-        <!-- Fila 3: Gráfico circular y tarjeta de reacciones -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Gráfico circular de reacciones -->
-            <div class="bg-gradient-to-br from-[#fff0f0] via-[#fbeee6] to-[#f8fafc] rounded-3xl shadow-2xl p-10 flex flex-col items-center hover:scale-105 hover:shadow-3xl transition-transform duration-300 border border-[#ffb3b3]">
-                <div class="bg-[#FF6F61] rounded-full p-4 mb-4 shadow-lg border-4 border-white animate-pulse">
-                    <i class="fas fa-fire text-white text-3xl"></i>
-                </div>
-                <h3 class="text-xl font-extrabold text-[#023E8A] mb-2 tracking-wide text-center drop-shadow">Reactions Overview
-                </h3>
-                <div class="w-full h-64 flex items-center justify-center">
-                    <canvas id="chartReacciones"></canvas>
-                </div>
-            </div>
-            <!-- Card: Información de cantidad de reacciones -->
-            <div class="bg-gradient-to-br from-[#fff0f0] via-[#fbeee6] to-[#f8fafc] rounded-3xl shadow-2xl p-10 flex flex-col items-center justify-center hover:scale-105 hover:shadow-3xl transition-transform duration-300 border border-[#ffb3b3]">
-                <div class="bg-[#FFD60A] rounded-full p-4 mb-4 shadow-lg border-4 border-white animate-bounce">
-                    <i class="fas fa-bolt text-[#FF6F61] text-3xl"></i>
-                </div>
-                <h3 class="text-xl font-extrabold text-[#023E8A] mb-2 tracking-wide text-center drop-shadow">Total Number of Reactions
-                </h3>
-                <div class="text-2xl font-extrabold text-[#FF6F61] mb-2" id="totalReactions">[Amount]</div>
-                <div class="text-gray-500">Sum of all reactions</div>
-            </div>
-        </div>
+        <!-- Fila 3: Solo tarjeta de reacciones eliminada -->
 
         <!-- Fila 4: Estadísticas -->
         <div class="bg-gradient-to-br from-[#eaf6fb] via-[#f1f8fb] to-[#fffde7] rounded-3xl shadow-2xl p-10 min-h-[300px] flex flex-col mt-8 border border-[#ffe066]">
@@ -215,25 +192,6 @@
                 }
             });
         });
-    // Gráfico de reacciones (ejemplo estático)
-    new Chart(document.getElementById('chartReacciones'), {
-        type: 'doughnut',
-        data: {
-            labels: ['Me gusta', 'Me encanta', 'Me asombra'],
-            datasets: [{
-                label: 'Reacciones',
-                data: [120, 90, 30],
-                backgroundColor: ['#FF6F61', '#FFD60A', '#48CAE4']
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }
-    });
     // Usuario que más comenta
     fetch('https://apim-turismo.onrender.com/api/vw_totalcomments_users')
         .then(response => response.json())

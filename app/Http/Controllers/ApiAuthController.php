@@ -15,7 +15,7 @@ class ApiAuthController extends Controller
     {
         $data = $request->validate([
             'email'    => 'required|email',
-            'password' => 'required|string',
+            'password' => 'required|string', 
         ]);
         $data['role'] = 1;
         $response = Http::withoutVerifying()

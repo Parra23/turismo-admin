@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
+use App\Support\Columns; // <-- Agrega esto
 
 class InsertController extends Controller
 {
@@ -20,20 +21,22 @@ class InsertController extends Controller
             abort(404, 'Registro no encontrado');
         }
         $registro = $data[0];
-        $fields = array_keys($registro);
+
+        // Obtén las columnas configuradas para el recurso
+        $columns = Columns::get($resource);
 
         // Llama a la función options() para los combos
         $selectOptions = $this->options();
-        // dd($selectOptions);
 
-        return view('components.general-insert', compact('fields', 'resource', 'selectOptions'));    }
+        return view('components.general-insert', compact('columns', 'registro', 'resource', 'selectOptions'));
+    }
+
     public function store(\Illuminate\Http\Request $request, $resource)
     {
         $map = $this->getResourceMap();
         if (!isset($map[$resource])) {
             abort(404);
         }
-
         $apiUrl = env('API_TURISMO_URL') . '/' . $map[$resource];
         $data = $request->except('_token');
 
@@ -44,22 +47,14 @@ class InsertController extends Controller
         if (isset($data['status'])) {
             $data['status'] = $data['status'] === 'active' ? 1 : 0;
         }
-
         $response = Http::withoutVerifying()->post($apiUrl, $data);
-
         if (!$response->successful()) {
             $errorData = $response->json() ?? ['error' => 'No se pudo crear el registro.'];
-            if ($request->ajax()) {
-                return response()->json($errorData, 400);
-            }
-            $errorMsg = $errorData['message'] ?? 'No se pudo crear el registro.';
+            $errorMsg = $errorData['message'] ?? $errorData['error'] ?? 'No se pudo crear el registro.';
             return redirect()
                 ->route('general.insert', ['resource' => $resource])
                 ->withInput()
                 ->with('error', $errorMsg);
-        }
-        if ($request->ajax()) {
-            return response()->json(['success' => 'Record created correctly']);
         }
         return redirect()
             ->route('general.show', ['resource' => $resource])

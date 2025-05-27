@@ -12,18 +12,14 @@ class UpdateController extends Controller
         $map = $this->getResourceMap();
         if (!isset($map[$resource])) {
             $msg = 'Recurso no válido.';
-            return $request->ajax()
-                ? response()->json(['error' => $msg], 404)
-                : abort(404, $msg);
+            abort(404, $msg);
         }
 
         $apiUrl = rtrim(env('API_TURISMO_URL'), '/') . '/' . $map[$resource] . '/' . $id;
         $original = Http::withoutVerifying()->get($apiUrl)->json();
         if (!$original) {
             $msg = 'No se pudo obtener el recurso.';
-            return $request->ajax()
-                ? response()->json(['error' => $msg], 400)
-                : back()->withErrors(['error' => $msg]);
+            return back()->withErrors(['error' => $msg]);
         }
         if (is_array($original) && count($original) === 1) $original = $original[0];
 
@@ -36,9 +32,7 @@ class UpdateController extends Controller
 
         if (!collect($data)->some(fn($v, $k) => (array_key_exists($k, $original) && ($k === 'password' ? !empty($v) : $original[$k] != $v)))) {
             $msg = 'No se realizaron cambios en el formulario.';
-            return $request->ajax()
-                ? response()->json(['error' => $msg], 400)
-                : back()->withErrors(['error' => $msg]);
+            return back()->withErrors(['error' => $msg]);
         }
 
         $response = Http::withoutVerifying()->put($apiUrl, $data);
@@ -52,13 +46,7 @@ class UpdateController extends Controller
                 $apiError = $response->json();
                 $msg = $apiError['error'] ?? $apiError['message'] ?? $msg;
             }
-            return $request->ajax()
-                ? response()->json(['error' => $msg, 'api' => $response->body()], 400)
-                : back()->withErrors(['error' => $msg]);
-        }
-
-        if ($request->ajax()) {
-            return response()->json(['success' => 'Updated registration correctly.']);
+            return back()->withErrors(['error' => $msg]);
         }
 
         return redirect($resource)->with('success', 'Updated registration correctly.');

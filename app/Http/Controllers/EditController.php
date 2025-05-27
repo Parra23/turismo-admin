@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Support\Columns;
 
 use Illuminate\Support\Facades\Http;
 
@@ -24,12 +25,8 @@ class EditController extends Controller
         }
         $registro = is_array($data) && isset($data[0]) ? $data[0] : $data;
 
-        
-        // dd($departments);
-  // Obtén las opciones para los combos
-    $selectOptions = $this->options();  
-     //dd($selectOptions);
-      
-        return view('edit', compact('registro', 'resource', 'selectOptions'));
+        $columns = Columns::get($resource); // <-- Esto es lo importante
+        $selectOptions = $this->options();
+        return view('components.general-edit', compact('registro', 'resource', 'selectOptions', 'columns'));
     }
 }

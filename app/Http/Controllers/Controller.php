@@ -75,34 +75,39 @@ abstract class Controller
         }));
     }
     public function options()
-{
-    $departments = Http::withoutVerifying()->get(env('API_TURISMO_URL') . '/departments')->json();
-    $users = Http::withoutVerifying()->get(env('API_TURISMO_URL') . '/vw_user')->json();
-    $places = Http::withoutVerifying()->get(env('API_TURISMO_URL') . '/Places')->json();
-    $placetypes = Http::withoutVerifying()->get(env('API_TURISMO_URL') . '/PlaceTypes')->json();
-    $city = Http::withoutVerifying()->get(env('API_TURISMO_URL') . '/Cities')->json();
+    {
+        $departments = Http::withoutVerifying()->get(env('API_TURISMO_URL') . '/departments')->json();
+        $users = Http::withoutVerifying()->get(env('API_TURISMO_URL') . '/vw_user')->json();
+        $places = Http::withoutVerifying()->get(env('API_TURISMO_URL') . '/Places')->json();
+        $placetypes = Http::withoutVerifying()->get(env('API_TURISMO_URL') . '/PlaceTypes')->json();
+        $city = Http::withoutVerifying()->get(env('API_TURISMO_URL') . '/Cities')->json();
+        $comment = Http::withoutVerifying()->get(env('API_TURISMO_URL') . '/Comments')->json();
 
-    $departments = $departments['data'] ?? $departments ?? [];
-    $users = $users['data'] ?? $users ?? [];
-    $places = $places['data'] ?? $places ?? [];
-    $placetypes = $placetypes['data'] ?? $placetypes ?? [];
-    $city = $city['data'] ?? $city ?? [];
+        $departments = $departments['data'] ?? $departments ?? [];
+        $users = $users['data'] ?? $users ?? [];
+        $places = $places['data'] ?? $places ?? [];
+        $placetypes = $placetypes['data'] ?? $placetypes ?? [];
+        $city = $city['data'] ?? $city ?? [];
+        $comment = $comment['data'] ?? $comment ?? [];
 
-    //dd($places );
-    foreach ($users as &$user) {
-        $user['role_name'] = $user['role'] == 1 ? 'admin' : 'user';
-        $user['status_name'] = $user['status'] == 1 ? 'active' : 'inactive';
+        //dd($comment);
+        //dd($places );
+        foreach ($users as &$user) {
+            $user['role_name'] = $user['role'] == 1 ? 'admin' : 'user';
+            $user['status_name'] = $user['status'] == 1 ? 'active' : 'inactive';
+        }
+
+        return [
+            'department_id' => collect($departments)->pluck('name', 'id')->toArray(),
+            'id'       => collect($users)->pluck('name', 'id')->toArray(),
+            'role'   => collect($users)->pluck('role_name')->unique()->mapWithKeys(fn($v) => [$v => ucfirst($v)])->toArray(),
+            'status' => collect($users)->pluck('status_name')->unique()->mapWithKeys(fn($v) => [$v => ucfirst($v)])->toArray(),
+            'place_id'      => collect($places)->pluck('name', 'place_id')->toArray(),
+            'type_id' => collect($placetypes)->pluck('name', 'id')->toArray(),
+            'city_id' => collect($city)->pluck('name_city', 'id')->toArray(),
+            'parent_comment_id' => collect($comment)
+                ->pluck('comment', 'comment_id')
+                ->toArray(),
+        ];
     }
-
-    return [
-        'department_id' => collect($departments)->pluck('name', 'id')->toArray(),
-        'user_id'       => collect($users)->pluck('name', 'user_id')->toArray(),
-        'role'   => collect($users)->pluck('role_name')->unique()->mapWithKeys(fn($v) => [$v => ucfirst($v)])->toArray(),
-        'status' => collect($users)->pluck('status_name')->unique()->mapWithKeys(fn($v) => [$v => ucfirst($v)])->toArray(),
-        'place_id'      => collect($places)->pluck('name', 'place_id')->toArray(),
-        'type_id' => collect($placetypes)->pluck('name', 'id')->toArray(),
-        'city_id' => collect($city)->pluck('name_city', 'id')->toArray(),
-
-    ];
-}
 }
