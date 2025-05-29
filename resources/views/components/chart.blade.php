@@ -251,10 +251,6 @@
                     <span class="bg-[#023E8A]/10 text-[#023E8A] font-semibold px-3 py-1 rounded-full">Max</span>
                     <span class="font-bold text-[#023E8A]">${max}</span>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="bg-gray-200 text-gray-700 font-semibold px-3 py-1 rounded-full">Count</span>
-                    <span class="font-bold">${totals.length}</span>
-                </div>
             `;
             }
         });
@@ -286,10 +282,6 @@
                 <div class="flex items-center gap-2">
                     <span class="bg-[#023E8A]/10 text-[#023E8A] font-semibold px-3 py-1 rounded-full">Max</span>
                     <span class="font-bold text-[#023E8A]">${max}</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="bg-gray-200 text-gray-700 font-semibold px-3 py-1 rounded-full">Count</span>
-                    <span class="font-bold">${totals.length}</span>
                 </div>
             `;
             }
