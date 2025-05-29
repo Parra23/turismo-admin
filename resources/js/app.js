@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
             Swal.fire({
                 icon: data.status,
                 title: data.message,
+                showConfirmButton: false,
+                timer: 1500
             }).then(() => {
                 if (data.status === "success" && data.redirect) {
                     window.location.href = data.redirect;
