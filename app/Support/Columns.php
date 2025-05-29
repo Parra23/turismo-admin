@@ -18,15 +18,15 @@ class Columns
             ],
             'departments' => [
                 ['label' => 'ID', 'key' => 'id'],
-                ['label' => 'Namej', 'key' => 'name'],
+                ['label' => 'Name', 'key' => 'name'],
             ],
             'cities' => [
                 ['label' => 'ID', 'key' => 'id'],
                 ['label' => 'Name City', 'key' => 'name_city'],
                 ['label' => 'Department', 'key' => 'name_department'],
                 ['label' => 'Name Department', 'key' => 'department_id'],
-            ], 
-            'places' => [ 
+            ],
+            'places' => [
                 ['label' => 'ID', 'key' => 'place_id'],
                 ['label' => 'Place name', 'key' => 'name'],
                 ['label' => 'name type', 'key' => 'type_id'],
@@ -43,7 +43,8 @@ class Columns
                 ['label' => 'Contact Website', 'key' => 'social_media'],
                 ['label' => 'Status', 'key' => 'status'],
                 ['label' => 'Creation date', 'key' => 'creation_date'],
-                ],'placetypes' => [
+            ],
+            'placetypes' => [
                 ['label' => 'ID', 'key' => 'id'],
                 ['label' => 'Name Type', 'key' => 'name'],
                 ['label' => 'Description', 'key' => 'description'],
@@ -53,7 +54,8 @@ class Columns
                 ['label' => 'Place ID', 'key' => 'place_id'],
                 ['label' => 'Url', 'key' => 'url'],
                 ['label' => 'Description', 'key' => 'description'],
-            ],'comments' => [
+            ],
+            'comments' => [
                 ['label' => 'ID', 'key' => 'comment_id'],
                 ['label' => 'Place NAMe', 'key' => 'place_id'],
                 ['label' => 'plACe Name', 'key' => 'name_place'],
@@ -61,9 +63,10 @@ class Columns
                 ['label' => 'USER NAME', 'key' => 'name'],
                 ['label' => 'Comment', 'key' => 'comment'],
                 ['label' => 'Parent comment', 'key' => 'parent_comment_id'],
-                ['label' => 'Comment Date', 'key' => 'comment_date'], 
+                ['label' => 'Comment Date', 'key' => 'comment_date'],
 
-            ],'reactions' => [
+            ],
+            'reactions' => [
                 ['label' => 'ID', 'key' => 'id'],
                 ['label' => 'User name', 'key' => 'user_id'],
                 ['label' => 'USER NAME', 'key' => 'name_user'],
@@ -71,7 +74,8 @@ class Columns
                 ['label' => 'plACe Name', 'key' => 'name_place'],
                 ['label' => 'Reaction type', 'key' => 'reaction_type'],
                 ['label' => 'Reaction date', 'key' => 'reaction_date'],
-            ],'favorites' => [
+            ],
+            'favorites' => [
                 ['label' => 'ID', 'key' => 'favorite_id'],
                 ['label' => 'NaMe UsEr', 'key' => 'id'],
                 ['label' => 'naME', 'key' => 'name_user'],
@@ -79,6 +83,14 @@ class Columns
                 ['label' => 'Rol', 'key' => 'role'],
                 ['label' => 'NaMe plaCe', 'key' => 'name_place'],
                 ['label' => 'Added date', 'key' => 'added_date'],
+            ],
+            'logs' => [
+                ['label' => 'ID', 'key' => 'id'],
+                ['label' => 'Name', 'key' => 'user_name'],
+                ['label' => 'Table name', 'key' => 'table_name'],
+                ['label' => 'Action type', 'key' => 'action_type'],
+                ['label' => 'Description', 'key' => 'description'],
+                ['label' => 'Action timestamp', 'key' => 'action_timestamp'],
             ],
         ];
         return $all[$resource] ?? [];
