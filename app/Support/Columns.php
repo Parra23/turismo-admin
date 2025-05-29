@@ -25,8 +25,8 @@ class Columns
                 ['label' => 'Name City', 'key' => 'name_city'],
                 ['label' => 'Department', 'key' => 'name_department'],
                 ['label' => 'Name Department', 'key' => 'department_id'],
-            ],
-            'places' => [
+            ], 
+            'places' => [ 
                 ['label' => 'ID', 'key' => 'place_id'],
                 ['label' => 'Place name', 'key' => 'name'],
                 ['label' => 'name type', 'key' => 'type_id'],
@@ -55,7 +55,7 @@ class Columns
                 ['label' => 'Description', 'key' => 'description'],
             ],'comments' => [
                 ['label' => 'ID', 'key' => 'comment_id'],
-                ['label' => 'Place name', 'key' => 'place_id'],
+                ['label' => 'Place NAMe', 'key' => 'place_id'],
                 ['label' => 'plACe Name', 'key' => 'name_place'],
                 ['label' => 'User name', 'key' => 'id'],
                 ['label' => 'USER NAME', 'key' => 'name'],
@@ -63,11 +63,24 @@ class Columns
                 ['label' => 'Parent comment', 'key' => 'parent_comment_id'],
                 ['label' => 'Comment Date', 'key' => 'comment_date'], 
 
+            ],'reactions' => [
+                ['label' => 'ID', 'key' => 'id'],
+                ['label' => 'User name', 'key' => 'user_id'],
+                ['label' => 'USER NAME', 'key' => 'name_user'],
+                ['label' => 'Place ID', 'key' => 'place_id'],
+                ['label' => 'plACe Name', 'key' => 'name_place'],
+                ['label' => 'Reaction type', 'key' => 'reaction_type'],
+                ['label' => 'Reaction date', 'key' => 'reaction_date'],
+            ],'favorites' => [
+                ['label' => 'ID', 'key' => 'favorite_id'],
+                ['label' => 'NaMe UsEr', 'key' => 'id'],
+                ['label' => 'naME', 'key' => 'name_user'],
+                ['label' => 'nAme PlAcE', 'key' => 'place_id'],
+                ['label' => 'Rol', 'key' => 'role'],
+                ['label' => 'NaMe plaCe', 'key' => 'name_place'],
+                ['label' => 'Added date', 'key' => 'added_date'],
             ],
-
-            // Agrega más recursos aquí
         ];
-
         return $all[$resource] ?? [];
     }
 }

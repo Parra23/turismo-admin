@@ -4,7 +4,7 @@
     $tableColumns = collect($columns)
         ->filter(function($col) {
             return is_array($col)
-                && !in_array($col['label'] ?? '', ['Password', 'Name Department', 'name type', 'name city', 'Place ID', 'PLaCe NaMe', 'user name']);
+                && !in_array($col['label'] ?? '', ['Password', 'Name Department', 'name type', 'name city', 'Place ID', 'PLaCe NaMe', 'user name', 'Place NAMe', 'nAme PlAcE', "NaMe UsEr"]);
         })
         ->values()
         ->all();

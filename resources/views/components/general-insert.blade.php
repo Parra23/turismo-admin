@@ -5,7 +5,7 @@
             ->filter(function ($col) use ($resource) {
                 if (!is_array($col)) return false;
                 // Excluir por label
-                if (in_array($col['label'] ?? '', ['Department', 'Name cYTy', 'Name tYPe', 'plACe Name', 'USER NAME', 'Comment Date', 'Creation date'])) return false;
+                if (in_array($col['label'] ?? '', ['Department', 'Name cYTy', 'Name tYPe', 'plACe Name', 'USER NAME', 'Comment Date', 'Creation date', 'ID', 'naME', 'NaMe plaCe', 'Added date', 'Reaction date'])) return false;
                 // Excluir role y status si el recurso no es users
                 if (in_array($col['key'], ['role', 'status']) && $resource !== 'users') return false;
                 return true;
@@ -24,9 +24,9 @@
                         <div>
                             <label for="{{ $key }}"
                                 class="block text-sm font-semibold text-[#023E8A] capitalize mb-1">
-                                {{ $col['label'] }}
+                                {{ strtoupper($col['label']) }}
                             </label>
-                            @if (Str::endsWith($key, '_id') && !empty($selectOptions[$key]))
+                            @if (Str::endsWith($key, '_id') || $key === 'id' && !empty($selectOptions[$key]))
                                 <select name="{{ $key }}" id="{{ $key }}"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 bg-white">
                                     <option value="">Seleccione...</option>

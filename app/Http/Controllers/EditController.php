@@ -25,7 +25,7 @@ class EditController extends Controller
         }
         $registro = is_array($data) && isset($data[0]) ? $data[0] : $data;
 
-        $columns = Columns::get($resource); // <-- Esto es lo importante
+        $columns = Columns::get($resource); 
         $selectOptions = $this->options();
         return view('components.general-edit', compact('registro', 'resource', 'selectOptions', 'columns'));
     }

@@ -4,7 +4,7 @@
         // Excluir columnas por key o por label
         $tableColumns = collect($columns)
             ->filter(function ($col) {
-                return is_array($col) && !in_array($col['label'] ?? '', ['Department', 'Name cYTy', 'Name tYPe', 'plACe Name', 'USER NAME', 'Comment Date', 'Creation date']);
+                return is_array($col) && !in_array($col['label'] ?? '', ['Department', 'Name cYTy', 'Name tYPe', 'plACe Name', 'USER NAME', 'Comment Date', 'Creation date', 'ID', 'naME', 'NaMe plaCe', 'Added date', 'Reaction date']);
             })
             ->values()
             ->all();
@@ -34,12 +34,12 @@
                         <div>
                             <label for="{{ $key }}"
                                 class="block text-sm font-semibold text-[#023E8A] capitalize mb-1">
-                                {{ $col['label'] }}
+                                {{ strtoupper($col['label']) }}
                             </label>
                             @if ((Str::endsWith($key, '_id') || $key === 'id') && !empty($selectOptions[$key]))
                                 <select name="{{ $key }}" id="{{ $key }}"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                                    <option value="">Seleccione...</option>
+                                    <option value="">Selected...</option>
                                     @foreach ($selectOptions[$key] as $optionId => $optionLabel)
                                         <option value="{{ $optionId }}"
                                             {{ old($key, $registro[$key] ?? '') == $optionId ? 'selected' : '' }}>
@@ -78,7 +78,7 @@
                     </div>
                 @endif
                 {{-- Select de Status --}}
-                @if ($resource === 'users' && !empty($selectOptions['status']))
+                @if (in_array($resource, ['users', 'places']) && !empty($selectOptions['status']))
                     <div>
                         <label for="status" class="block text-sm font-semibold text-[#023E8A] capitalize mb-1">
                             Status

@@ -100,6 +100,7 @@ abstract class Controller
         return [
             'department_id' => collect($departments)->pluck('name', 'id')->toArray(),
             'id'       => collect($users)->pluck('name', 'id')->toArray(),
+            'user_id'  => collect($users)->pluck('name', 'id')->toArray(),
             'role'   => collect($users)->pluck('role_name')->unique()->mapWithKeys(fn($v) => [$v => ucfirst($v)])->toArray(),
             'status' => collect($users)->pluck('status_name')->unique()->mapWithKeys(fn($v) => [$v => ucfirst($v)])->toArray(),
             'place_id'      => collect($places)->pluck('name', 'place_id')->toArray(),
